@@ -11,7 +11,7 @@ def read(fname):
 long_description = read('README.md')
     
 
-setup(name='decent_logs',
+setup(name='DecentLogs',
       author="Andrea Censi",
       author_email="andrea@cds.caltech.edu",
       url='http://github.com/AndreaCensi/decent_logs',

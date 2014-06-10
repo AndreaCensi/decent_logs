@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = "1.0dev1"
+version = "1.0"
 
 description = """ Simple library to have objects keeping their log messages. """ 
 

@@ -1,7 +1,10 @@
-from .log_record import LogRecord
-from contracts import contract
-from decent_logs import logger
 import time
+
+from contracts import contract
+
+from decent_logs import logger
+
+from .log_record import LogRecord
 
 
 __all__ = ['WithInternalLog']
@@ -18,23 +21,23 @@ class WithInternalLog(object):
         self.log_lines = []  # log records
         self.children = {}    
         name = self.__class__.__name__  # don't call str() yet
-        self.name = name
+        self._log_name = name
         self.set_log_output(True)
         
     def _check_inited(self):
         """ Make sure that we inititalized the log system.
             We don't count on a constructor being called. """
-        if not 'name' in self.__dict__:
+        if not 'children' in self.__dict__:
             self._init_log()
         
     @contract(name='str')
     def set_name_for_log(self, name):
         self._check_inited()
-        self.name = name
+        self._log_name = name
         
         # update its names
         for id_child, child in self.children.items():
-            its_name = self.name + ':' + id_child
+            its_name = self._log_name + ':' + id_child
             child.set_name_for_log(its_name)
             
     @contract(id_child='str')
@@ -43,10 +46,23 @@ class WithInternalLog(object):
         if not isinstance(child, WithInternalLog):
             msg = 'Tried to add child of type %r' % type(child)
             self.error(msg)
-            return
+            raise ValueError(msg)
         self.children[id_child] = child
-        its_name = self.name + ':' + id_child
+        its_name = self._log_name + ':' + id_child
         child.set_name_for_log(its_name)
+
+#     @contract(id_child='str')
+#     def add_log_child(self, child, name=None):
+#         self._check_inited()
+#         if not isinstance(child, WithInternalLog):
+#             msg = 'Tried to add child of type %r' % type(child)
+#             self.error(msg)
+#             raise ValueError(msg)
+#
+#         self.children[use_name] = child
+#         its_name = self._log_name + ':' + id_child
+#         child.set_name_for_log(its_name)
+
     
     @contract(enable='bool')
     def set_log_output(self, enable):
@@ -58,7 +74,7 @@ class WithInternalLog(object):
         self.log_output_enabled = enable
     
     def _save_and_write(self, s, level):
-        record = LogRecord(name=self.name, timestamp=time.time(), string=s,
+        record = LogRecord(name=self._log_name, timestamp=time.time(), string=s,
                                level=level)
         self.log_lines.append(record)
         if self.log_output_enabled:

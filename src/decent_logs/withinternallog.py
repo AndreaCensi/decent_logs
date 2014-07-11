@@ -40,16 +40,41 @@ class WithInternalLog(object):
             its_name = self._log_name + ':' + id_child
             child.set_name_for_log(its_name)
             
-    @contract(id_child='str')
+    @contract(id_child='str|None')
     def log_add_child(self, id_child, child):
         self._check_inited()
         if not isinstance(child, WithInternalLog):
             msg = 'Tried to add child of type %r' % type(child)
             self.error(msg)
             raise ValueError(msg)
+        if id_child is None:
+            id_child = type(child).__name__
+        
+        if child in self.children.values():
+            for old_id in self.children:
+                if self.children[old_id] == child:
+                    del  self.children[old_id]
+                    break
+        
+        while id_child in self.children:
+            self.error('Invalid name %s  ' % id_child)
+            id_child += 'b'
+
         self.children[id_child] = child
         its_name = self._log_name + ':' + id_child
         child.set_name_for_log(its_name)
+
+    def log_child_name(self, child):
+        """ Rrturns the id under which the child was registered. """
+        for id_child, x in self.children.items():
+            if x == child:
+                return id_child
+        raise ValueError('No such child %r.' % child)
+
+    @contract(returns='None|str')
+    def log_get_short_status(self):
+        """ returns a short status line for this object. """
+        return None
 
 #     @contract(id_child='str')
 #     def add_log_child(self, child, name=None):
@@ -74,8 +99,18 @@ class WithInternalLog(object):
         self.log_output_enabled = enable
     
     def _save_and_write(self, s, level):
-        record = LogRecord(name=self._log_name, timestamp=time.time(), string=s,
-                               level=level)
+        status = self.log_get_short_status()
+        if status is None:
+            status = ''
+        else:
+            status = '(%s) ' % status
+
+        string = status + s
+        name = self._log_name
+        record = LogRecord(name=name,
+                           timestamp=time.time(),
+                           string=string,
+                           level=level)
         self.log_lines.append(record)
         if self.log_output_enabled:
             record.write_to_logger(logger)

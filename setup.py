@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(name='DecentLogs',
       author="Andrea Censi",
-      author_email="andrea@cds.caltech.edu",
+      author_email="censi@mit.edu",
       url='http://github.com/AndreaCensi/decent_logs',
       
       description=description,

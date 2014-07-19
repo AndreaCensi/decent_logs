@@ -35,10 +35,13 @@ class WithInternalLog(object):
         self._check_inited()
         self._log_name = name
         
+#         self.debug('set_name_for_log %r' % name)
         # update its names
         for id_child, child in self.children.items():
             its_name = self._log_name + ':' + id_child
             child.set_name_for_log(its_name)
+            
+        
             
     @contract(id_child='str|None')
     def log_add_child(self, id_child, child):
@@ -51,13 +54,13 @@ class WithInternalLog(object):
             id_child = type(child).__name__
         
         if child in self.children.values():
-            for old_id in self.children:
-                if self.children[old_id] == child:
-                    del  self.children[old_id]
-                    break
+            old_id = self.log_child_name(child)
+            del self.children[old_id]
+            if id_child is None:
+                id_child = old_id
         
         while id_child in self.children:
-            self.error('Invalid name %s  ' % id_child)
+            #self.warn('Invalid name %s  ' % id_child)
             id_child += 'b'
 
         self.children[id_child] = child
@@ -70,11 +73,11 @@ class WithInternalLog(object):
             if x == child:
                 return id_child
         raise ValueError('No such child %r.' % child)
-
-    @contract(returns='None|str')
-    def log_get_short_status(self):
-        """ returns a short status line for this object. """
-        return None
+# 
+#     @contract(returns='None|str')
+#     def log_get_short_status(self):
+#         """ returns a short status line for this object. """
+#         return None
 
 #     @contract(id_child='str')
 #     def add_log_child(self, child, name=None):
@@ -99,11 +102,12 @@ class WithInternalLog(object):
         self.log_output_enabled = enable
     
     def _save_and_write(self, s, level):
-        status = self.log_get_short_status()
+#         status = self.log_get_short_status()
+        status = type(self).__name__
         if status is None:
             status = ''
         else:
-            status = '(%s) ' % status
+            status = ' (%s): ' % status
 
         string = status + s
         name = self._log_name

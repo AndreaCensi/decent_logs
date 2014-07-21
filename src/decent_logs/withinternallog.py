@@ -1,11 +1,8 @@
-import time
-
-from contracts import contract
-
-from decent_logs import logger
-
 from .log_record import LogRecord
-
+from contracts import contract
+from decent_logs import logger
+import time
+ 
 
 __all__ = ['WithInternalLog']
 
@@ -24,7 +21,7 @@ class WithInternalLog(object):
         self._log_name = name
         self.set_log_output(True)
         
-    def _check_inited(self):
+    def _wil_check_inited(self):
         """ Make sure that we inititalized the log system.
             We don't count on a constructor being called. """
         if not 'children' in self.__dict__:
@@ -32,20 +29,17 @@ class WithInternalLog(object):
         
     @contract(name='str')
     def set_name_for_log(self, name):
-        self._check_inited()
+        self._wil_check_inited()
         self._log_name = name
         
-#         self.debug('set_name_for_log %r' % name)
         # update its names
         for id_child, child in self.children.items():
             its_name = self._log_name + ':' + id_child
             child.set_name_for_log(its_name)
-            
-        
-            
+
     @contract(id_child='str|None')
     def log_add_child(self, id_child, child):
-        self._check_inited()
+        self._wil_check_inited()
         if not isinstance(child, WithInternalLog):
             msg = 'Tried to add child of type %r' % type(child)
             self.error(msg)
@@ -73,28 +67,11 @@ class WithInternalLog(object):
             if x == child:
                 return id_child
         raise ValueError('No such child %r.' % child)
-# 
-#     @contract(returns='None|str')
-#     def log_get_short_status(self):
-#         """ returns a short status line for this object. """
-#         return None
-
-#     @contract(id_child='str')
-#     def add_log_child(self, child, name=None):
-#         self._check_inited()
-#         if not isinstance(child, WithInternalLog):
-#             msg = 'Tried to add child of type %r' % type(child)
-#             self.error(msg)
-#             raise ValueError(msg)
-#
-#         self.children[use_name] = child
-#         its_name = self._log_name + ':' + id_child
-#         child.set_name_for_log(its_name)
-
+ 
     
     @contract(enable='bool')
     def set_log_output(self, enable):
-        self._check_inited()
+        self._wil_check_inited()
         """ 
             Enable or disable instantaneous on-screen logging.
             If disabled, things are still memorized.     
@@ -102,12 +79,12 @@ class WithInternalLog(object):
         self.log_output_enabled = enable
     
     def _save_and_write(self, s, level):
-#         status = self.log_get_short_status()
         status = type(self).__name__
         if status is None:
             status = ''
         else:
             status = ' (%s): ' % status
+            #status = ' (%s#%s): ' % (status, id(self))
 
         string = status + s
         name = self._log_name
@@ -122,27 +99,27 @@ class WithInternalLog(object):
     @contract(s='str')
     def info(self, s):
         """ Logs a string; saves it for visualization. """
-        self._check_inited()
+        self._wil_check_inited()
         self._save_and_write(s, 'info')
         
     @contract(s='str')
     def debug(self, s):
-        self._check_inited()
+        self._wil_check_inited()
         self._save_and_write(s, 'debug')
     
     @contract(s='str')
     def error(self, s):
-        self._check_inited()
+        self._wil_check_inited()
         self._save_and_write(s, 'error')
 
     @contract(s='str')
     def warn(self, s):
-        self._check_inited()
+        self._wil_check_inited()
         self._save_and_write(s, 'warn')
     
     def get_log_lines(self):
         """ Returns a list of LogRecords """
-        self._check_inited()
+        self._wil_check_inited()
         lines = list(self.log_lines)
         for child in self.children.values():
             lines.extend(child.get_log_lines())
@@ -151,6 +128,6 @@ class WithInternalLog(object):
     
     def get_raw_log_lines(self):
         """ Returns a list of strings """
-        self._check_inited()
+        self._wil_check_inited()
         raw = map(LogRecord.__str__, self.get_log_lines())
         return raw

@@ -1,5 +1,8 @@
+
 bump-upload:
-	bumpversion --config-file .bumbversion.cfg patch
+	bumpversion patch
 	git push --tags
 	git push --all
-	python setup.py sdist upload
+	rm -f dist/*
+	python setup.py sdist
+	twine upload dist/*

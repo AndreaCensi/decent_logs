@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = "1.0"
+version = "1.1.1"
 
 description = """ Simple library to have objects keeping their log messages. """ 
 
@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(name='DecentLogs',
       author="Andrea Censi",
-      author_email="andrea@cds.caltech.edu",
+      author_email="censi@mit.edu",
       url='http://github.com/AndreaCensi/decent_logs',
       
       description=description,

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .log_record import LogRecord
 from contracts import contract
 from decent_logs import logger

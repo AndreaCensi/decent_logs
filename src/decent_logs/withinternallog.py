@@ -130,5 +130,5 @@ class WithInternalLog(object):
     def get_raw_log_lines(self):
         """ Returns a list of strings """
         self._wil_check_inited()
-        raw = map(LogRecord.__str__, self.get_log_lines())
+        raw = list(map(LogRecord.__str__, self.get_log_lines()))
         return raw

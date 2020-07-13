@@ -1,6 +1,6 @@
 import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 
 def get_version(filename):
@@ -28,10 +28,11 @@ def read(fname):
 
 
 long_description = read('README.md')
-
-setup(name='DecentLogs',
+line = 'z6'
+install_requires = ['PyContracts3']
+setup(name=f'DecentLogs-{line}',
       author="Andrea Censi",
-      author_email="censi@mit.edu",
+      author_email="",
       url='http://github.com/AndreaCensi/decent_logs',
 
       description=description,
@@ -58,7 +59,7 @@ setup(name='DecentLogs',
       },
       package_dir={'': 'src'},
       packages=find_packages('src'),
-      install_requires=['PyContracts'],
+      install_requires=install_requires,
       tests_require=['nose'],
       zip_safe=False,
       )

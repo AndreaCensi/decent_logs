@@ -1,5 +1,5 @@
 
-bump-upload:
+bump:
 	bumpversion patch
 	git push --tags
 	git push --all

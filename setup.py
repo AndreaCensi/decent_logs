@@ -58,6 +58,6 @@ setup(
     package_dir={"": "src"},
     packages=find_packages("src"),
     install_requires=install_requires,
-    tests_require=["nose"],
+    tests_require=["nose>=1.3.7"],
     zip_safe=False,
 )

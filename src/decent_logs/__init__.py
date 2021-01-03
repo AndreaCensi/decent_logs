@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 __version__ = "7.0.4"
 
 from zuper_commons import ZLogger

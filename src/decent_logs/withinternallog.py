@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
 from typing import Optional
 
 from .log_record import LogRecord
+
 # from contracts import contract
 from decent_logs import logger
 import time
 
 
-__all__ = ['WithInternalLog']
+__all__ = ["WithInternalLog"]
 
 
 class WithInternalLog(object):
@@ -27,7 +27,7 @@ class WithInternalLog(object):
     def _wil_check_inited(self):
         """ Make sure that we inititalized the log system.
             We don't count on a constructor being called. """
-        if not 'children' in self.__dict__:
+        if not "children" in self.__dict__:
             self._init_log()
 
     def set_name_for_log(self, name: str):
@@ -36,13 +36,13 @@ class WithInternalLog(object):
 
         # update its names
         for id_child, child in self.children.items():
-            its_name = self._log_name + ':' + id_child
+            its_name = self._log_name + ":" + id_child
             child.set_name_for_log(its_name)
 
     def log_add_child(self, id_child: Optional[str], child):
         self._wil_check_inited()
         if not isinstance(child, WithInternalLog):
-            msg = 'Tried to add child of type %r' % type(child)
+            msg = "Tried to add child of type %r" % type(child)
             self.error(msg)
             raise ValueError(msg)
         if id_child is None:
@@ -55,11 +55,11 @@ class WithInternalLog(object):
                 id_child = old_id
 
         while id_child in self.children:
-            #self.warn('Invalid name %s  ' % id_child)
-            id_child += 'b'
+            # self.warn('Invalid name %s  ' % id_child)
+            id_child += "b"
 
         self.children[id_child] = child
-        its_name = self._log_name + ':' + id_child
+        its_name = self._log_name + ":" + id_child
         child.set_name_for_log(its_name)
 
     def log_child_name(self, child):
@@ -67,53 +67,47 @@ class WithInternalLog(object):
         for id_child, x in self.children.items():
             if x == child:
                 return id_child
-        raise ValueError('No such child %r.' % child)
-
-
+        raise ValueError("No such child %r." % child)
 
     def set_log_output(self, enable: bool):
         self._wil_check_inited()
-        """ 
+        """
             Enable or disable instantaneous on-screen logging.
-            If disabled, things are still memorized.     
+            If disabled, things are still memorized.
         """
         self.log_output_enabled = enable
 
     def _save_and_write(self, s, level):
         status = type(self).__name__
         if status is None:
-            status = ''
+            status = ""
         else:
-            status = ' (%s): ' % status
-            #status = ' (%s#%s): ' % (status, id(self))
+            status = " (%s): " % status
+            # status = ' (%s#%s): ' % (status, id(self))
 
         string = status + s
         name = self._log_name
-        record = LogRecord(name=name,
-                           timestamp=time.time(),
-                           string=string,
-                           level=level)
+        record = LogRecord(name=name, timestamp=time.time(), string=string, level=level)
         self.log_lines.append(record)
         if self.log_output_enabled:
             record.write_to_logger(logger)
 
-
     def info(self, s: str):
         """ Logs a string; saves it for visualization. """
         self._wil_check_inited()
-        self._save_and_write(s, 'info')
+        self._save_and_write(s, "info")
 
     def debug(self, s: str):
         self._wil_check_inited()
-        self._save_and_write(s, 'debug')
+        self._save_and_write(s, "debug")
 
     def error(self, s: str):
         self._wil_check_inited()
-        self._save_and_write(s, 'error')
+        self._save_and_write(s, "error")
 
     def warn(self, s: str):
         self._wil_check_inited()
-        self._save_and_write(s, 'warn')
+        self._save_and_write(s, "warn")
 
     def get_log_lines(self):
         """ Returns a list of LogRecords """

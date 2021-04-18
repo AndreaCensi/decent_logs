@@ -12,9 +12,9 @@ __all__ = ["WithInternalLog"]
 
 class WithInternalLog(object):
     """
-        Subclassing this class gives the object the capability
-        of calling self.info, self.error, etc. and have their
-        logging memorized.
+    Subclassing this class gives the object the capability
+    of calling self.info, self.error, etc. and have their
+    logging memorized.
     """
 
     def _init_log(self):
@@ -25,8 +25,8 @@ class WithInternalLog(object):
         self.set_log_output(True)
 
     def _wil_check_inited(self):
-        """ Make sure that we inititalized the log system.
-            We don't count on a constructor being called. """
+        """Make sure that we inititalized the log system.
+        We don't count on a constructor being called."""
         if not "children" in self.__dict__:
             self._init_log()
 

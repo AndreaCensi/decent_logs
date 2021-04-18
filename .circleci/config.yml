@@ -2,7 +2,7 @@ jobs:
   test-3.8-production:
     docker:
     - {image: python:3.8}
-    environment: {COLUMNS: '160', COVER_PACKAGES: 'decent_logs_tests,decent_logs.withinternallog,decent_logs.log_record,decent_logs',
+    environment: {COLUMNS: '160', COVER_PACKAGES: 'decent_logs_tests,decent_logs.withinternallog,decent_logs,decent_logs.log_record',
       PATH: /root/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,
       TEST_PACKAGES: decent_logs_tests}
     steps:
@@ -45,7 +45,7 @@ jobs:
   test-3.8-staging:
     docker:
     - {image: python:3.8}
-    environment: {COLUMNS: '160', COVER_PACKAGES: 'decent_logs_tests,decent_logs.withinternallog,decent_logs.log_record,decent_logs',
+    environment: {COLUMNS: '160', COVER_PACKAGES: 'decent_logs_tests,decent_logs.withinternallog,decent_logs,decent_logs.log_record',
       PATH: /root/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,
       TEST_PACKAGES: decent_logs_tests}
     steps:
@@ -99,4 +99,4 @@ workflows:
           branches: {ignore: /z7-stage.*/}
   version: 2
 
-# sigil 445c6e548846f060d55329d4e9f21d8a
+# sigil 0097ae1e9b95e5def22ad9234f2da925

@@ -110,8 +110,8 @@ jobs:
     - run:
         name: decent_logs_tests
         command: |-
-          set -ex
-          mkdir -p out/test-results;
+          set -euxo pipefail
+          mkdir -p out/test-results
           xunit_output=$PWD/out/test-results/nose-${CIRCLE_NODE_INDEX}-decent_logs_tests-xunit.xml
           nosetests \
               --rednose --immediate \
@@ -245,8 +245,8 @@ jobs:
     - run:
         name: decent_logs_tests
         command: |-
-          set -ex
-          mkdir -p out/test-results;
+          set -euxo pipefail
+          mkdir -p out/test-results
           xunit_output=$PWD/out/test-results/nose-${CIRCLE_NODE_INDEX}-decent_logs_tests-xunit.xml
           nosetests \
               --rednose --immediate \
@@ -380,8 +380,8 @@ jobs:
     - run:
         name: decent_logs_tests
         command: |-
-          set -ex
-          mkdir -p out/test-results;
+          set -euxo pipefail
+          mkdir -p out/test-results
           xunit_output=$PWD/out/test-results/nose-${CIRCLE_NODE_INDEX}-decent_logs_tests-xunit.xml
           nosetests \
               --rednose --immediate \
@@ -515,8 +515,8 @@ jobs:
     - run:
         name: decent_logs_tests
         command: |-
-          set -ex
-          mkdir -p out/test-results;
+          set -euxo pipefail
+          mkdir -p out/test-results
           xunit_output=$PWD/out/test-results/nose-${CIRCLE_NODE_INDEX}-decent_logs_tests-xunit.xml
           nosetests \
               --rednose --immediate \
@@ -565,4 +565,4 @@ jobs:
           bash <(curl -s https://codecov.io/bash)
     resource_class: medium+
 
-# sigil 4eddbc764866c3691adfbdff657ae71f
+# sigil 12803fe43b8ec5ab0c27d3f159e999ab

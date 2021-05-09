@@ -8,7 +8,7 @@ modules:
 install_requires:
 - zuper-commons-z7
 
-install_conflicts: [DecentLogs*]
+
 tests_require: []
 console_scripts: {}
 nose:

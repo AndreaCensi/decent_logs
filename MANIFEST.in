@@ -13,3 +13,4 @@ exclude .pre-commit-config.yaml
 exclude Makefile*
 exclude Dockerfile*
 exclude README.md
+exclude requirements*txt

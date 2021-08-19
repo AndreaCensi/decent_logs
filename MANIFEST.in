@@ -14,3 +14,4 @@ exclude Makefile*
 exclude Dockerfile*
 exclude README.md
 exclude requirements*txt
+exclude .dockerignore

@@ -63,7 +63,7 @@ class WithInternalLog(object):
         child.set_name_for_log(its_name)
 
     def log_child_name(self, child):
-        """ Rrturns the id under which the child was registered. """
+        """Rrturns the id under which the child was registered."""
         for id_child, x in self.children.items():
             if x == child:
                 return id_child
@@ -93,7 +93,7 @@ class WithInternalLog(object):
             record.write_to_logger(logger)
 
     def info(self, s: str):
-        """ Logs a string; saves it for visualization. """
+        """Logs a string; saves it for visualization."""
         self._wil_check_inited()
         self._save_and_write(s, "info")
 
@@ -110,7 +110,7 @@ class WithInternalLog(object):
         self._save_and_write(s, "warn")
 
     def get_log_lines(self):
-        """ Returns a list of LogRecords """
+        """Returns a list of LogRecords"""
         self._wil_check_inited()
         lines = list(self.log_lines)
         for child in self.children.values():
@@ -119,7 +119,7 @@ class WithInternalLog(object):
         return lines
 
     def get_raw_log_lines(self):
-        """ Returns a list of strings """
+        """Returns a list of strings"""
         self._wil_check_inited()
         raw = list(map(LogRecord.__str__, self.get_log_lines()))
         return raw

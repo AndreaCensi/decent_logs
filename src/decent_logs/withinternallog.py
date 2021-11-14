@@ -1,11 +1,8 @@
+import time
 from typing import Optional
 
+from . import logger
 from .log_record import LogRecord
-
-# from contracts import contract
-from decent_logs import logger
-import time
-
 
 __all__ = ["WithInternalLog"]
 

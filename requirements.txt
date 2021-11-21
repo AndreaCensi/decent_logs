@@ -1,1 +1,0 @@
-PyContracts3>=3.0.2

@@ -4,7 +4,9 @@ from typing import Optional
 from . import logger
 from .log_record import LogRecord
 
-__all__ = ["WithInternalLog"]
+__all__ = [
+    "WithInternalLog",
+]
 
 
 class WithInternalLog(object):

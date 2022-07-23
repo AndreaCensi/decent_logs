@@ -1,4 +1,6 @@
-__all__ = ["LogRecord"]
+__all__ = [
+    "LogRecord",
+]
 
 
 class LogRecord(object):

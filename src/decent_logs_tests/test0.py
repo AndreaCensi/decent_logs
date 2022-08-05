@@ -1,4 +1,11 @@
-def test1():
-    from decent_logs import logger
+from decent_logs import WithInternalLog
 
-    _ = logger
+
+class A(WithInternalLog):
+    def go(self) -> None:
+        self.debug("Hello")
+
+
+def test1() -> None:
+    a = A()
+    a.go()

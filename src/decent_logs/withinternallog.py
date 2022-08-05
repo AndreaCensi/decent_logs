@@ -1,5 +1,5 @@
 import time
-from typing import Optional
+from typing import Dict, List, Optional
 
 from . import logger
 from .log_record import LogRecord
@@ -9,27 +9,32 @@ __all__ = [
 ]
 
 
-class WithInternalLog(object):
+class WithInternalLog:
     """
     Subclassing this class gives the object the capability
     of calling self.info, self.error, etc. and have their
     logging memorized.
     """
 
-    def _init_log(self):
+    log_lines: List[LogRecord]
+    children: "Dict[str, WithInternalLog]"
+    _log_name: str
+    log_output_enabled: bool
+
+    def _init_log(self) -> None:
         self.log_lines = []  # log records
         self.children = {}
         name = self.__class__.__name__  # don't call str() yet
         self._log_name = name
-        self.set_log_output(True)
+        self.log_output_enabled = True
 
-    def _wil_check_inited(self):
+    def _wil_check_inited(self) -> None:
         """Make sure that we inititalized the log system.
         We don't count on a constructor being called."""
         if not "children" in self.__dict__:
             self._init_log()
 
-    def set_name_for_log(self, name: str):
+    def set_name_for_log(self, name: str) -> None:
         self._wil_check_inited()
         self._log_name = name
 
@@ -38,7 +43,7 @@ class WithInternalLog(object):
             its_name = self._log_name + ":" + id_child
             child.set_name_for_log(its_name)
 
-    def log_add_child(self, id_child: Optional[str], child):
+    def log_add_child(self, id_child: Optional[str], child: "WithInternalLog") -> None:
         self._wil_check_inited()
         if not isinstance(child, WithInternalLog):
             msg = "Tried to add child of type %r" % type(child)
@@ -61,14 +66,14 @@ class WithInternalLog(object):
         its_name = self._log_name + ":" + id_child
         child.set_name_for_log(its_name)
 
-    def log_child_name(self, child):
+    def log_child_name(self, child: "WithInternalLog") -> str:
         """Rrturns the id under which the child was registered."""
         for id_child, x in self.children.items():
             if x == child:
                 return id_child
         raise ValueError("No such child %r." % child)
 
-    def set_log_output(self, enable: bool):
+    def set_log_output(self, enable: bool) -> None:
         self._wil_check_inited()
         """
             Enable or disable instantaneous on-screen logging.
@@ -76,7 +81,7 @@ class WithInternalLog(object):
         """
         self.log_output_enabled = enable
 
-    def _save_and_write(self, s, level):
+    def _save_and_write(self, s: str, level: str) -> None:
         status = type(self).__name__
         if status is None:
             status = ""
@@ -91,24 +96,24 @@ class WithInternalLog(object):
         if self.log_output_enabled:
             record.write_to_logger(logger)
 
-    def info(self, s: str):
+    def info(self, s: str) -> None:
         """Logs a string; saves it for visualization."""
         self._wil_check_inited()
         self._save_and_write(s, "info")
 
-    def debug(self, s: str):
+    def debug(self, s: str) -> None:
         self._wil_check_inited()
         self._save_and_write(s, "debug")
 
-    def error(self, s: str):
+    def error(self, s: str) -> None:
         self._wil_check_inited()
         self._save_and_write(s, "error")
 
-    def warn(self, s: str):
+    def warn(self, s: str) -> None:
         self._wil_check_inited()
         self._save_and_write(s, "warn")
 
-    def get_log_lines(self):
+    def get_log_lines(self) -> List[LogRecord]:
         """Returns a list of LogRecords"""
         self._wil_check_inited()
         lines = list(self.log_lines)
@@ -117,7 +122,7 @@ class WithInternalLog(object):
         lines.sort(key=lambda x: x.timestamp)
         return lines
 
-    def get_raw_log_lines(self):
+    def get_raw_log_lines(self) -> List[str]:
         """Returns a list of strings"""
         self._wil_check_inited()
         raw = list(map(LogRecord.__str__, self.get_log_lines()))

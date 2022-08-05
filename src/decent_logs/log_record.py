@@ -1,10 +1,17 @@
+from zuper_commons.logs import ZLoggerInterface
+
 __all__ = [
     "LogRecord",
 ]
 
 
-class LogRecord(object):
-    def __init__(self, name, timestamp, string, level):
+class LogRecord:
+    name: str
+    timestamp: float
+    string: str
+    level: str
+
+    def __init__(self, name: str, timestamp: float, string: str, level: str):
         self.name = name
         self.timestamp = timestamp
         self.string = string
@@ -15,10 +22,10 @@ class LogRecord(object):
             msg = "Got %r, expected %r." % (level, levels)
             raise ValueError(msg)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "%s: %s" % (self.name, self.string)
 
-    def write_to_logger(self, logger):
+    def write_to_logger(self, logger: ZLoggerInterface) -> None:
         s = self.__str__()
         level = self.level
         if level == "info":

@@ -11,7 +11,9 @@
   "zip_safe": true,
   "include_package_data": true,
   "modules": [
-    "decent_logs"
+    "decent_logs",
+    "decent_logs.log_record",
+    "decent_logs.withinternallog"
   ],
   "version": "7.2",
   "author": "Andrea Censi",

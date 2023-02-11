@@ -23,6 +23,7 @@ jobs:
       DEPS_INSTALL_TIMEOUT: 10m
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
+      PIP_INDEX_URL: ${PIP_INDEX_URL_SRC}
     docker:
     - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.10:${Z_DISTRO}
       auth:
@@ -177,6 +178,7 @@ jobs:
       DEPS_INSTALL_TIMEOUT: 10m
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
+      PIP_INDEX_URL: ${PIP_INDEX_URL_SRC}
     docker:
     - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.11:${Z_DISTRO}
       auth:
@@ -321,4 +323,4 @@ jobs:
           ./codecov  
     resource_class: small
 
-# sigil d912a28a41332b8137a5fb390c25bf2a
+# sigil fbc563973ef3bbd1babcb97865440060

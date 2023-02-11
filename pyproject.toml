@@ -1,0 +1,19 @@
+[project]
+name = "DecentLogs-z7"
+version = "7.2"
+authors = [{name = "Andrea Censi", email = "info@zupermind.com"}]
+dependencies = ["zuper-commons-z7"]
+
+[project.scripts]
+
+[tool]
+[tool.poetry]
+name = "DecentLogs-z7"
+version = "7.2"
+description = ""
+authors = ["Andrea Censi <info@zupermind.com>"]
+packages = [{include = "decent_logs", from = "src"}]
+
+[tool.setuptools]
+packages = ["decent_logs"]
+package-dir = {"" = "src"}

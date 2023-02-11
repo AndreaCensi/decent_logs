@@ -13,11 +13,6 @@
   "packages": [
     "decent_logs"
   ],
-  "py_modules": [
-    "decent_logs",
-    "decent_logs.log_record",
-    "decent_logs.withinternallog"
-  ],
   "version": "7.2",
   "author": "Andrea Censi",
   "author_email": "info@zupermind.com",

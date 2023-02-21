@@ -37,4 +37,4 @@ class LogRecord:
         elif level == "warn":
             logger.warn(s)
         else:
-            assert False
+            raise AssertionError(level)

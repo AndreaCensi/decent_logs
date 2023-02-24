@@ -28,10 +28,10 @@ jobs:
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
     docker:
-    - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.10:${Z_DISTRO}
-      auth:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+    - image: docker.io/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.10:${Z_DISTRO}
+      # auth:
+      #   username: $DOCKER_USERNAME
+      #   password: $DOCKER_PASSWORD
     working_directory: ~/repo
     steps:
     - checkout
@@ -192,10 +192,10 @@ jobs:
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
     docker:
-    - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.10:${Z_DISTRO}
-      auth:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+    - image: docker.io/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.10:${Z_DISTRO}
+      # auth:
+      #   username: $DOCKER_USERNAME
+      #   password: $DOCKER_PASSWORD
     working_directory: ~/repo
     steps:
     - checkout
@@ -356,10 +356,10 @@ jobs:
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
     docker:
-    - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.11:${Z_DISTRO}
-      auth:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+    - image: docker.io/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.11:${Z_DISTRO}
+      # auth:
+      #   username: $DOCKER_USERNAME
+      #   password: $DOCKER_PASSWORD
     working_directory: ~/repo
     steps:
     - checkout
@@ -520,10 +520,10 @@ jobs:
       COVER_PACKAGES: decent_logs,decent_logs_tests
       TEST_PACKAGES: decent_logs_tests
     docker:
-    - image: ${DOCKER_REGISTRY}/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.11:${Z_DISTRO}
-      auth:
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+    - image: docker.io/${DOCKER_TARGET_ORG}/${DOCKER_REPO_PREFIX}zuper-ci-3.11:${Z_DISTRO}
+      # auth:
+      #   username: $DOCKER_USERNAME
+      #   password: $DOCKER_PASSWORD
     working_directory: ~/repo
     steps:
     - checkout
@@ -673,4 +673,4 @@ jobs:
           ./codecov  
     resource_class: small
 
-# sigil d23354b862d0602143cff3e4ddf02a33
+# sigil 61e39393b7267616fffe136bec39680f

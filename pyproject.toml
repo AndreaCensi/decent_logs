@@ -2,11 +2,7 @@
 name = "DecentLogs-z7"
 version = "7.2"
 authors = [{name = "Andrea Censi", email = "AndreaCensi@users.noreply.github.com"}]
-dependencies = [
-    "zuper-commons-z7",
-    ]
 
-[tool]
 [tool.poetry]
 name = "DecentLogs-z7"
 version = "7.2"
@@ -16,11 +12,10 @@ packages = [
     {from = "src", include = "decent_logs"},
     ]
 
-[tool.setuptools]
-packages = [
-    "decent_logs",
-    ]
-package-dir = {"" = "src"}
+[tool.poetry.dependencies]
+zuper-commons-z7 = "*"
+
+[tool.poetry.group.test.dependencies]
 
 [build-system]
 requires = [

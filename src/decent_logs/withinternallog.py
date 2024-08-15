@@ -1,5 +1,5 @@
 import time
-from typing import Dict, List, Optional
+from typing import Optional
 
 from . import logger
 from .log_record import LogRecord
@@ -16,8 +16,8 @@ class WithInternalLog:
     logging memorized.
     """
 
-    log_lines: List[LogRecord]
-    children: "Dict[str, WithInternalLog]"
+    log_lines: list[LogRecord]
+    children: "dict[str, WithInternalLog]"
     _log_name: str
     log_output_enabled: bool
 
@@ -113,7 +113,7 @@ class WithInternalLog:
         self._wil_check_inited()
         self._save_and_write(s, "warn")
 
-    def get_log_lines(self) -> List[LogRecord]:
+    def get_log_lines(self) -> list[LogRecord]:
         """Returns a list of LogRecords"""
         self._wil_check_inited()
         lines = list(self.log_lines)
@@ -122,7 +122,7 @@ class WithInternalLog:
         lines.sort(key=lambda x: x.timestamp)
         return lines
 
-    def get_raw_log_lines(self) -> List[str]:
+    def get_raw_log_lines(self) -> list[str]:
         """Returns a list of strings"""
         self._wil_check_inited()
         raw = list(map(LogRecord.__str__, self.get_log_lines()))

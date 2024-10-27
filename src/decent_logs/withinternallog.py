@@ -1,5 +1,4 @@
 import time
-from typing import Optional
 
 from . import logger
 from .log_record import LogRecord
@@ -43,7 +42,7 @@ class WithInternalLog:
             its_name = self._log_name + ":" + id_child
             child.set_name_for_log(its_name)
 
-    def log_add_child(self, id_child: Optional[str], child: "WithInternalLog") -> None:
+    def log_add_child(self, id_child: str | None, child: "WithInternalLog") -> None:
         self._wil_check_inited()
         if not isinstance(child, WithInternalLog):
             msg = "Tried to add child of type %r" % type(child)
